@@ -19,12 +19,12 @@
 
   list = "";
   for (site of ring.sites) {
-    list += `<li><a href='${site}'>${site.replace(regex, "")}</a></li>`;
+    list += `<li><a href='${escapeHTML(site)}'>${escapeHTML(site.replace(regex, ""))}</a></li>`;
   }
 
   tag.insertAdjacentHTML('afterbegin', `
     <ul>
-      ${escapeHTML(list)}
+      ${list}
     </ul>
   `);
 })();
