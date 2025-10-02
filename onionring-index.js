@@ -19,7 +19,7 @@
 
   list = "";
   for (site of ring.sites) {
-    list += `<li><a href='${site}'>${ring.site.replace(regex, "")}</a></li>`;
+    list += `<li><a href='${site}'>${site.replace(regex, "")}</a></li>`;
   }
 
   tag.insertAdjacentHTML('afterbegin', `
