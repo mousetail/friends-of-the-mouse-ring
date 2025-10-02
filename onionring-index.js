@@ -18,8 +18,8 @@
   regex = /^https?:\/\/|\/$/g; //strips the https:// and trailing slash off the urls for aesthetic purposes
 
   list = "";
-  for (i = 0; i < ring.sites.length; i++) {
-    list += `<li><a href='${sites[i]}'>${sites[i].replace(regex, "")}</a></li>`;
+  for (site of ring.sites) {
+    list += `<li><a href='${site}'>${ring.site.replace(regex, "")}</a></li>`;
   }
 
   tag.insertAdjacentHTML('afterbegin', `
