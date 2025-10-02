@@ -10,12 +10,13 @@ a conveninet way to browse sites about a similar topic without use of a search e
 
 ## How to join
 
-Send an email to [mousetial+onionring@mousetail.nl](mailto://mousetial+onionring@mousetial.nl) or
+Send an email to [mousetail+onionring@mousetail.nl](mailto://mousetail+onionring@mousetial.nl) or
 create a pull request on [https://github.com/mousetail/friends-of-the-mouse-ring](https://github.com/mousetail/friends-of-the-mouse-ring).
 
 If you would prefer to be placed at a specific point in the ring, let me know.
 
 If you want to join, you can add the following widget to your page:
+
 ```html
 <div id='friends-of-the-mouse-ring'>
     <script type="text/javascript" src="https://webring.mousetail.nl/onionring-variables.js" defer></script>
