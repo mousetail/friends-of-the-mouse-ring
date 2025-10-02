@@ -5,68 +5,81 @@
 // === ONIONRING-WIDGET ===
 //this file contains the code which builds the widget shown on each page in the ring. ctrl+f 'EDIT THIS' if you're looking to change the actual html of the widget
 
-var tag = document.getElementById(ringID); //find the widget on the page
+var tag = document.getElementById(window.ringID); //find the widget on the page
 
-thisSite = window.location.href; //get the url of the site we're currently on
-thisIndex = null;
+(()=>{
+  const escapeHTML = (e) => e.replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;');;
 
-// go through the site list to see if this site is on it and find its position
-for (i = 0; i < sites.length; i++) {
-  if (thisSite.startsWith(sites[i])) { //we use startswith so this will match any subdirectory, users can put the widget on multiple pages
-    thisIndex = i;
-    break; //when we've found the site, we don't need to search any more, so stop the loop
-  }
-}
+  const ring = window.onionrings[window.ringID];
 
-function randomSite() {
-  otherSites = sites.slice(); //create a copy of the sites list
-  otherSites.splice(thisIndex, 1); //remove the current site so we don't just land on it again
-  randomIndex = Math.floor(Math.random() * otherSites.length);
-  location.href = otherSites[randomIndex];
-}
+  const thisSite = window.location.protocol+window.location.host+window.location.pathname; // exclude the search and fragment sections of the path
+  let thisIndex = null;
 
-//if we didn't find the site in the list, the widget displays a warning instead
-if (thisIndex == null) {
-  tag.insertAdjacentHTML('afterbegin', `
-<table>
-  <tr>
-    <td>This site isn't part of the ${ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
-  </tr>
-</table>
-  `);
-}
-else {
-  //find the 'next' and 'previous' sites in the ring. this code looks complex
-  //because it's using a shorthand version of an if-else statement to make sure
-  //the first and last sites in the ring join together correctly
-  previousIndex = (thisIndex-1 < 0) ? sites.length-1 : thisIndex-1;
-  nextIndex = (thisIndex+1 >= sites.length) ? 0 : thisIndex+1;
-
-  indexText = ""
-  //if you've chosen to include an index, this builds the link to that
-  if (useIndex) {
-    indexText = `<a href='${indexPage}'>index</a> | `;
+  // go through the site list to see if this site is on it and find its position
+  for (i = 0; i < ring.sites.length; i++) {
+    if (thisSite.startsWith(sites[i])) { //we use startswith so this will match any subdirectory, users can put the widget on multiple pages
+      thisIndex = i;
+      break; //when we've found the site, we don't need to search any more, so stop the loop
+    }
   }
 
-  randomText = ""
-  //if you've chosen to include a random button, this builds the link that does that
-  if (useRandom) {
-    randomText = `<a href='javascript:void(0)' onclick='randomSite()'>random</a> | `;
+  function randomSite() {
+    otherSites = ring.sites.slice(); //create a copy of the sites list
+    otherSites.splice(thisIndex, 1); //remove the current site so we don't just land on it again
+    randomIndex = Math.floor(Math.random() * otherSites.length);
+    return otherSites[randomIndex];
   }
 
-  //this is the code that displays the widget - EDIT THIS if you want to change the structure
-  tag.insertAdjacentHTML('afterbegin', `
-  <table>
-    <tr>
-      <td class='webring-prev'><a href='${sites[previousIndex]}'>← previous</a></td>
-      <td class='webring-info'>This site is part of the ${ringName} webring</br>
-      <span class='webring-links'>
-        ${randomText}
-        ${indexText}
-        <a href='https://garlic.garden/onionring/'>what is this?</a></span></td>
-      <td class='webring-next'><a href='${sites[nextIndex]}'>next →</a></td>
-    </tr>
-  </table>
-  `);
+  //if we didn't find the site in the list, the widget displays a warning instead
+  if (thisIndex == null) {
+    tag.insertAdjacentHTML('afterbegin', `
+      <table>
+        <tr>
+          <td>This site isn't part of the ${ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
+        </tr>
+        <tr>
+          <td>Check if the URL is correct and the exact same as in onionring-variables.js</td>
+        </tr>
+      </table>
+    `);
+  }
+  else {
+    //find the 'next' and 'previous' sites in the ring. this code looks complex
+    //because it's using a shorthand version of an if-else statement to make sure
+    //the first and last sites in the ring join together correctly
+    previousIndex = (thisIndex-1 < 0) ? sites.length-1 : thisIndex-1;
+    nextIndex = (thisIndex+1 >= sites.length) ? 0 : thisIndex+1;
 
-}
+    indexText = ""
+    //if you've chosen to include an index, this builds the link to that
+    if (ring.useIndex) {
+      indexText = `<a href='${escapeHTML(indexPage)}'>index</a> | `;
+    }
+
+    randomText = ""
+    //if you've chosen to include a random button, this builds the link that does that
+    if (ring.useRandom) {
+      randomText = `<a href='${escapeHTML(randomSite())}'>random</a> | `;
+    }
+
+    //this is the code that displays the widget - EDIT THIS if you want to change the structure
+    tag.insertAdjacentHTML('afterbegin', `
+      <table>
+        <tr>
+          <td class='webring-prev'><a href='${escapeHTML(ring.sites[previousIndex])}'>← previous</a></td>
+          <td class='webring-info'>This site is part of the ${escapeHTML(ring.ringName)} webring</br>
+          <span class='webring-links'>
+            ${ring.randomText}
+            ${ring.indexText}
+            <a href='https://garlic.garden/onionring/'>what is this?</a></span></td>
+          <td class='webring-next'><a href='${escapeHTML(sites[nextIndex])}'>next →</a></td>
+        </tr>
+      </table>
+    `);
+
+  }
+})();

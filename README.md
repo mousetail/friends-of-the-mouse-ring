@@ -18,8 +18,9 @@ If you would prefer to be placed at a specific point in the ring, let me know.
 If you want to join, you can add the following widget to your page:
 ```html
 <div id='friends-of-the-mouse-ring'>
-    <script type="text/javascript" src="https://webring.mousetail.nl/onionring-variables.js"></script>
-    <script type="text/javascript" src="https://webring.mousetail.nl/onionring-widget.js"></script>
+    <script type="text/javascript" src="https://webring.mousetail.nl/onionring-variables.js" defer></script>
+    <script type="text/javascript" src="https://webring.mousetail.nl/onionring-widget.js" defer></script>
+    <link rel="stylesheet" href="https://webring.mousetail.nl/onionring.css">
 </div>
 ```
 

@@ -4,26 +4,28 @@
 
 // === ONIONRING-VARIABLES ===
 //this file contains the stuff you edit to set up your specific webring
-
-//the full URLs of all the sites in the ring
-var sites = [
-    'https://mousetail.github.io/how-normal-am-i/',
-    'https://mousetail.gitlab.io/weapon-generator/',
-    'https://mousetail.github.io/improv-or-dream',
-];
-
-//the name of the ring
-var ringName = 'Friends of the Mouse';
+window.onionRings ??= {};
 
 /* the unique ID of the widget. two things to note:
  1) make sure there are no spaces in it - use dashes or underscores if you must
  2) remember to change 'webringid' in the widget code you give out and all instances of '#webringid' in the css file to match this value!*/
-var ringID = 'friends-of-the-mouse-ring';
+window.ringID = 'friends-of-the-mouse-ring';
+//the full URLs of all the sites in the ring
+window.onionRings[ringID] = {
+    sites: [
+        'https://mousetail.github.io/how-normal-am-i/',
+        'https://mousetail.gitlab.io/weapon-generator/',
+        'https://mousetail.github.io/improv-or-dream',
+    ],
 
-//should the widget include a link to an index page?
-var useIndex = false;
-//the full URL of the index page. if you're not using one, you don't have to specify anything here
-var indexPage = 'https://webring.mousetail.nl';
+    //the name of the ring
+    ringName: 'Friends of the Mouse',
 
-//should the widget include a random button?
-var useRandom = true;
+    //should the widget include a link to an index page?
+    useIndex: true,
+    //the full URL of the index page. if you're not using one, you don't have to specify anything here
+    indexPage: 'https://webring.mousetail.nl',
+
+    //should the widget include a random button?
+    useRandom: true
+};
