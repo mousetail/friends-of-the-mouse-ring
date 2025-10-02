@@ -16,12 +16,12 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
 
   const ring = window.onionrings[window.ringID];
 
-  const thisSite = window.location.protocol+window.location.host+window.location.pathname; // exclude the search and fragment sections of the path
+  const thisSite = window.location.href;
   let thisIndex = null;
 
   // go through the site list to see if this site is on it and find its position
   for (i = 0; i < ring.sites.length; i++) {
-    if (thisSite.startsWith(sites[i])) { //we use startswith so this will match any subdirectory, users can put the widget on multiple pages
+    if (thisSite.startsWith(ring.sites[i])) { //we use startswith so this will match any subdirectory, users can put the widget on multiple pages
       thisIndex = i;
       break; //when we've found the site, we don't need to search any more, so stop the loop
     }
@@ -52,19 +52,10 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
     //because it's using a shorthand version of an if-else statement to make sure
     //the first and last sites in the ring join together correctly
     previousIndex = (thisIndex-1 < 0) ? sites.length-1 : thisIndex-1;
-    nextIndex = (thisIndex+1 >= sites.length) ? 0 : thisIndex+1;
+    nextIndex = (thisIndex+1 >= ring.sites.length) ? 0 : thisIndex+1;
 
-    indexText = ""
-    //if you've chosen to include an index, this builds the link to that
-    if (ring.useIndex) {
-      indexText = `<a href='${escapeHTML(indexPage)}'>index</a> | `;
-    }
-
-    randomText = ""
-    //if you've chosen to include a random button, this builds the link that does that
-    if (ring.useRandom) {
-      randomText = `<a href='${escapeHTML(randomSite())}'>random</a> | `;
-    }
+    const indexText = ring.useIndex ? `<a href='${escapeHTML(ring.indexPage)}'>index</a> | ` : '';
+    const randomText = ring.useRandom ? `<a href='${escapeHTML(randomSite())}'>random</a> | ` : '';
 
     //this is the code that displays the widget - EDIT THIS if you want to change the structure
     tag.insertAdjacentHTML('afterbegin', `
@@ -73,10 +64,10 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
           <td class='webring-prev'><a href='${escapeHTML(ring.sites[previousIndex])}'>← previous</a></td>
           <td class='webring-info'>This site is part of the ${escapeHTML(ring.ringName)} webring</br>
           <span class='webring-links'>
-            ${ring.randomText}
-            ${ring.indexText}
+            ${randomText}
+            ${indexText}
             <a href='https://garlic.garden/onionring/'>what is this?</a></span></td>
-          <td class='webring-next'><a href='${escapeHTML(sites[nextIndex])}'>next →</a></td>
+          <td class='webring-next'><a href='${escapeHTML(ring.sites[nextIndex])}'>next →</a></td>
         </tr>
       </table>
     `);
