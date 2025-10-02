@@ -4,17 +4,27 @@
 
 // === ONIONRING-INDEX ===
 //this file builds the list of sites in the ring for displaying on your index page
+(()=>{
+  const escapeHTML = (e) => e
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
-var tag = document.getElementById('index');
-regex = /^https:\/\/|\/$/g; //strips the https:// and trailing slash off the urls for aesthetic purposes
+  const ring = window.onionrings[window.ringID];
 
-list = "";
-for (i = 0; i < sites.length; i++) {
-  list += `<li><a href='${sites[i]}'>${sites[i].replace(regex, "")}</a></li>`;
-}
+  var tag = document.getElementById('index');
+  regex = /^https?:\/\/|\/$/g; //strips the https:// and trailing slash off the urls for aesthetic purposes
 
-tag.insertAdjacentHTML('afterbegin', `
-<ul>
-${list}
-</ul>
-`);
+  list = "";
+  for (i = 0; i < ring.sites.length; i++) {
+    list += `<li><a href='${sites[i]}'>${sites[i].replace(regex, "")}</a></li>`;
+  }
+
+  tag.insertAdjacentHTML('afterbegin', `
+    <ul>
+      ${escapeHTML(list)}
+    </ul>
+  `);
+})();
