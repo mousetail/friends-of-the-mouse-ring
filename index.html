@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Friends of the Mouse Webring</title>
+
+<script type="module">
+    import markdownIt from 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/+esm';
+    const md = markdownIt();    
+
+    fetch('README.md').then(
+        res=>res.text()
+    ).then(
+        text=>{
+            const html = md.render(text);
+            document.querySelector('.description').innerHTML = html;
+        }
+    );
+</script>
+
+<style>
+    body { font-family: sans-serif; }
+    main {
+        max-width: 75rem;
+        margin: auto;
+    }
+</style>
+</head>
+<body>
+<main>
+<div class='description'>
+
+</div>
+
+<h2>Index of Sites</h2>
+
+<div id='index'>
+    <script type="text/javascript" src="/onionring-variables.js"></script>
+    <script type="text/javascript" src="/onionring-index.js"></script>
+</div>
+</main>
+</html>
