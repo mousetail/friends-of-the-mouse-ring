@@ -4,14 +4,14 @@
 
 // === ONIONRING-VARIABLES ===
 //this file contains the stuff you edit to set up your specific webring
-window.onionRings ??= {};
+window.onionrings ??= {};
 
 /* the unique ID of the widget. two things to note:
  1) make sure there are no spaces in it - use dashes or underscores if you must
  2) remember to change 'webringid' in the widget code you give out and all instances of '#webringid' in the css file to match this value!*/
 window.ringID = 'friends-of-the-mouse-ring';
 //the full URLs of all the sites in the ring
-window.onionRings[ringID] = {
+window.onionrings[ringID] = {
     sites: [
         'https://mousetail.github.io/how-normal-am-i/',
         'https://mousetail.gitlab.io/weapon-generator/',
