@@ -39,7 +39,7 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
     tag.insertAdjacentHTML('afterbegin', `
       <table>
         <tr>
-          <td>This site isn't part of the ${ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
+          <td>This site isn't part of the ${ring.ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
         </tr>
         <tr>
           <td>Check if the URL is correct and the exact same as in onionring-variables.js</td>
