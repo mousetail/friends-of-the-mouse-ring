@@ -16,6 +16,7 @@ window.onionrings[ringID] = {
         'https://mousetail.github.io/how-normal-am-i/',
         'https://mousetail.gitlab.io/weapon-generator/',
         'https://mousetail.github.io/improv-or-dream',
+        'https://conorobrien-foxx.github.io/tools/',
     ],
 
     //the name of the ring
