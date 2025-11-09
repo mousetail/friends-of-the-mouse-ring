@@ -39,7 +39,7 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
     tag.insertAdjacentHTML('afterbegin', `
       <table>
         <tr>
-          <td>This site isn't part of the ${ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
+          <td>This site isn't part of the ${ring.ringName} webring yet. You should talk to the manager to have your site added to the list!</td>
         </tr>
         <tr>
           <td>Check if the URL is correct and the exact same as in onionring-variables.js</td>
@@ -51,7 +51,7 @@ var tag = document.getElementById(window.ringID); //find the widget on the page
     //find the 'next' and 'previous' sites in the ring. this code looks complex
     //because it's using a shorthand version of an if-else statement to make sure
     //the first and last sites in the ring join together correctly
-    previousIndex = (thisIndex-1 < 0) ? sites.length-1 : thisIndex-1;
+    previousIndex = (thisIndex-1 < 0) ? ring.sites.length-1 : thisIndex-1;
     nextIndex = (thisIndex+1 >= ring.sites.length) ? 0 : thisIndex+1;
 
     const indexText = ring.useIndex ? `<a href='${escapeHTML(ring.indexPage)}'>index</a> | ` : '';
